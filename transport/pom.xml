@@ -2,22 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.sanshengshui</groupId>
-    <artifactId>netty</artifactId>
-    <version>0.1-dev</version>
+    <parent>
+        <artifactId>netty</artifactId>
+        <groupId>com.sanshengshui</groupId>
+        <version>0.1-dev</version>
+    </parent>
+
     <packaging>pom</packaging>
 
     <modules>
-        <module>application</module>
-        <module>transport</module>
+        <module>custom</module>
     </modules>
 
-    <name>findThing</name>
-    <url></url>
-    <inceptionYear>2018</inceptionYear>
+    <modelVersion>4.0.0</modelVersion>
 
-    <properties>
-    </properties>
+    <artifactId>transport</artifactId>
+
 
 </project>
