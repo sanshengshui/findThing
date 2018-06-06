@@ -1,4 +1,4 @@
-package com.sanshengshui.application;
+package com.sanshengshui.server.application;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

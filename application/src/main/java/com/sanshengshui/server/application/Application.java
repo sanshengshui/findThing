@@ -1,9 +1,11 @@
-package com.sanshengshui.application;
+package com.sanshengshui.server.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan({"com.sanshengshui.server"})
 public class Application {
 
     public static void main(String[] args) {
