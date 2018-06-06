@@ -6,6 +6,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.ResourceLeakDetector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ import javax.annotation.PostConstruct;
 @Service("CustomTransportService")
 @ConditionalOnProperty(prefix = "custom", value = "enabled", havingValue = "true", matchIfMissing = false)
 public class CustomTransportService {
-
+    private static final Logger log = LoggerFactory.getLogger(CustomTransportService.class);
     @Value("${custom.bind_address}")
     private String host;
     @Value("${custom.bind_port}")
@@ -38,23 +40,20 @@ public class CustomTransportService {
     @PostConstruct
     public void init() throws Exception {
         System.out.println(leakDetectorLevel);
-//        log.info("Setting resource leak detector level to {}", leakDetectorLevel);
-//        ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.valueOf(leakDetectorLevel.toUpperCase()));
-//
-//        log.info("Starting MQTT transport...");
-//        log.info("Lookup MQTT transport adaptor {}", adaptorName);
-//        this.adaptor = (MqttTransportAdaptor) appContext.getBean(adaptorName);
-//
-//        log.info("Starting MQTT transport server");
-//        bossGroup = new NioEventLoopGroup(bossGroupThreadCount);
-//        workerGroup = new NioEventLoopGroup(workerGroupThreadCount);
-//        ServerBootstrap b = new ServerBootstrap();
-//        b.group(bossGroup, workerGroup)
-//                .channel(NioServerSocketChannel.class)
-//                .childHandler(new MqttTransportServerInitializer(processor, deviceService, authService, relationService,
-//                        adaptor, sslHandlerProvider, quotaService, maxPayloadSize));
-//
-//        serverChannel = b.bind(host, port).sync().channel();
-//        log.info("Mqtt transport started!");
+        log.info("Setting resource leak detector level to {}", leakDetectorLevel);
+        ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.valueOf(leakDetectorLevel.toUpperCase()));
+
+        log.info("Starting MQTT transport...");
+
+        log.info("Starting MQTT transport server");
+        bossGroup = new NioEventLoopGroup(bossGroupThreadCount);
+        workerGroup = new NioEventLoopGroup(workerGroupThreadCount);
+        ServerBootstrap b = new ServerBootstrap();
+        b.group(bossGroup, workerGroup)
+                .channel(NioServerSocketChannel.class)
+                .childHandler(new CustomTransportServerInitializer( maxPayloadSize));
+
+        serverChannel = b.bind(host, port).sync().channel();
+        log.info("Mqtt transport started!");
     }
 }
