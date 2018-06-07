@@ -2,8 +2,8 @@ server:
   # Server bind address
   address: "${HTTP_BIND_ADDRESS:0.0.0.0}"
   # Server bind port
-  port: "${HTTP_BIND_PORT:8080}"
-# MQTT server parameters
+  port: "${HTTP_BIND_PORT:8081}"
+# Custom server parameters
 custom:
   # Enable/disable mqtt transport protocol.
   enabled: "${CUSTOM_ENABLED:true}"
