@@ -4,11 +4,22 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * @author 穆书伟
+ * @date 2018/6/7 13:12
+ */
 public class CustomTransportHandler extends ChannelInboundHandlerAdapter  implements GenericFutureListener<Future<? super Void>> {
+    private static final Logger log = LoggerFactory.getLogger(CustomTransportHandler.class);
+
+    /**
+     * @客户的登入
+     */
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        super.channelRegistered(ctx);
+        log.info("client: "+ ctx.channel().remoteAddress()+ "channelRegistered");
     }
 
     @Override

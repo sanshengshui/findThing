@@ -57,7 +57,6 @@ public class CustomTransportService {
 
     @PreDestroy
     public void shutdown()  {
-        System.out.println("=====+=====");
         log.info("Stopping Custom transport!");
         try {
             serverChannel.close().sync();
