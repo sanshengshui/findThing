@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 
 @Service("CustomTransportService")
@@ -39,13 +40,10 @@ public class CustomTransportService {
 
     @PostConstruct
     public void init() throws Exception {
-        System.out.println(leakDetectorLevel);
         log.info("Setting resource leak detector level to {}", leakDetectorLevel);
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.valueOf(leakDetectorLevel.toUpperCase()));
-
-        log.info("Starting MQTT transport...");
-
-        log.info("Starting MQTT transport server");
+        log.info("Starting Custom transport...");
+        log.info("Starting Custom transport server");
         bossGroup = new NioEventLoopGroup(bossGroupThreadCount);
         workerGroup = new NioEventLoopGroup(workerGroupThreadCount);
         ServerBootstrap b = new ServerBootstrap();
@@ -54,6 +52,21 @@ public class CustomTransportService {
                 .childHandler(new CustomTransportServerInitializer( maxPayloadSize));
 
         serverChannel = b.bind(host, port).sync().channel();
-        log.info("Mqtt transport started!");
+        log.info("Custom transport started!");
+    }
+
+    @PreDestroy
+    public void shutdown()  {
+        System.out.println("=====+=====");
+        log.info("Stopping Custom transport!");
+        try {
+            serverChannel.close().sync();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            workerGroup.shutdownGracefully();
+            bossGroup.shutdownGracefully();
+        }
+        log.info("Custom transport stopped!");
     }
 }
