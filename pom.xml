@@ -21,10 +21,8 @@
     <properties>
         <junit.version>4.11</junit.version>
         <netty.version>4.1.25.Final</netty.version>
-        <logback.version>1.0.13</logback.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <swagger.version>2.5.0</swagger.version>
         <guava.version>19.0</guava.version>
         <fastjson.version>1.1.40</fastjson.version>
     </properties>
@@ -37,17 +35,7 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
+
 
         <dependency>
             <groupId>io.netty</groupId>
