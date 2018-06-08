@@ -1,5 +1,8 @@
 server:
   # Server bind address
-  address: "${HTTP_BIND_ADDRESS:0.0.0.0}"
+  address: 127.0.0.1
   # Server bind port
-  port: "${HTTP_BIND_PORT:8082}"
+  port: 8082
+client:
+  bind_address: 127.0.0.1
+  bind_port: 1883
