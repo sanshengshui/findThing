@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Component
 public class Client {
@@ -29,6 +30,7 @@ public class Client {
 
     @PostConstruct
     public void start() throws InterruptedException {
+        LOGGER.info("Starting Test client...");
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
@@ -36,9 +38,22 @@ public class Client {
 
         ChannelFuture future = bootstrap.connect(host,port).sync();
         if (future.isSuccess()) {
-            LOGGER.info("启动 Netty 成功");
+            LOGGER.info("Test client started!");
         }
         channel = (SocketChannel) future.channel();
+    }
+
+    @PreDestroy
+    public void shutdown()  {
+        LOGGER.info("Stopping Test client!");
+        try {
+            channel.close().sync();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            group.shutdownGracefully();
+        }
+        LOGGER.info("Test client stopped!");
     }
 
 
