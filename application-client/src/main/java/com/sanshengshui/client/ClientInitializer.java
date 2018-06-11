@@ -13,7 +13,7 @@ public class ClientInitializer extends ChannelInitializer<Channel> {
                 //10 秒没发送消息 将IdleStateHandler 添加到 ChannelPipeline 中
                 .addLast(new IdleStateHandler(0, 10, 0))
                 .addLast(new StringDecoder())
-                .addLast(new StringEncoder())
+                .addLast(new EchoClientHandler())
         ;
     }
 }
