@@ -2,6 +2,7 @@ package com.sanshengshui.server.transport.custom;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -49,6 +50,8 @@ public class CustomTransportService {
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
+                //保持长连接
+                .childOption(ChannelOption.SO_KEEPALIVE,true)
                 .childHandler(new CustomTransportServerInitializer( maxPayloadSize));
 
         serverChannel = b.bind(host, port).sync().channel();
