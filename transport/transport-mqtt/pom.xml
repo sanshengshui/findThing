@@ -3,19 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>netty</artifactId>
+        <artifactId>transport</artifactId>
         <groupId>com.sanshengshui</groupId>
         <version>0.1-dev</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>transport</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>transport-custom</module>
-        <module>transport-http</module>
-        <module>transport-mqtt</module>
-    </modules>
+    <artifactId>transport-mqtt</artifactId>
 
 
 </project>
